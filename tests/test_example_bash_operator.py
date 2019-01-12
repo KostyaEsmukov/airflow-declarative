@@ -54,6 +54,10 @@ def test_example_bash_operator(good_dag_path):
     }
     assert set(yml_dag.task_ids) == expected_tasks
 
+    runme_0 = yml_dag.task_dict['runme_0']
+    assert isinstance(runme_0, BaseOperator)
+    assert "\n" in runme_0.bash_command
+
     run_after_loop = yml_dag.task_dict["run_after_loop"]
     assert isinstance(run_after_loop, BaseOperator)
     assert run_after_loop.bash_command == "echo 1"

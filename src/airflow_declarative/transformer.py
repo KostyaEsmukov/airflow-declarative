@@ -100,8 +100,8 @@ class YamlExtension(Extension):
 
 
 ENV = jinja2.Environment()
-ENV.filters["yaml"] = yaml_filter
-ENV.add_extension(YamlExtension)
+# ENV.filters["yaml"] = yaml_filter
+# ENV.add_extension(YamlExtension)
 
 
 def transform(schema):
@@ -187,9 +187,7 @@ def transform_list_with_item(list, item):
 
 
 def transform_string_with_item(string, item, env=ENV):
-    # That's not very cool, but at least this ensures that users won't send
-    # us arbitrary objects and will stay withof simple and clean data types.
-    return yaml.safe_load(env.from_string(string).render(item=item))
+    return env.from_string(string).render(item=item)
 
 
 def merge(base, other):
